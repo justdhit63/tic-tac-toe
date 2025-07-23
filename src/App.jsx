@@ -3,15 +3,10 @@ import Header from './components/Header.jsx'
 
 function Square({value, onSquareClick}) {
 
-  return <button className='square' onClick={onSquareClick}>{value}</button>
+  return <button className=' bg-gray-700 border w-full h-36 rounded-lg text-7xl font-bold text-gray-100' onClick={onSquareClick}>{value}</button>
 }
 
 function Board({squares, xIsNext, onPlay}) {
-  const [likes, setLikes] = useState(0);
-
-  function handleLike() {
-    setLikes(likes + 1);
-  }
 
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
@@ -30,17 +25,15 @@ function Board({squares, xIsNext, onPlay}) {
   if (winner){
     status = `Winner: ${winner}`;
   } else {
-    status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+    status = `Player Turn: ${xIsNext ? 'X' : 'O'}`;
   }
 
   return (
     <>
-      <div className="">
-        <Header />
-        <button onClick={handleLike}>Like {likes}</button>
-      </div>
-      <h1>{status}</h1>
-      <div className="board">
+    <div className="">
+      <h1 className='text-center text-4xl font-bold mb-8 text-gray-100'>TIC TAC TOE</h1>
+      <h1 className='mx-auto text-center text-xl mb-4 text-gray-100'><span className='font-medium'>{status}</span></h1>
+      <div className="grid grid-cols-3 grid-rows-3 w-lg mx-auto">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)}/>
         <Square value={squares[1]} onSquareClick={() => handleClick(1)}/>
         <Square value={squares[2]} onSquareClick={() => handleClick(2)}/>
@@ -51,6 +44,7 @@ function Board({squares, xIsNext, onPlay}) {
         <Square value={squares[7]} onSquareClick={() => handleClick(7)}/>
         <Square value={squares[8]} onSquareClick={() => handleClick(8)}/>
       </div>
+    </div>
     </>
   )
 }
@@ -81,18 +75,19 @@ export default function App() {
 
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button onClick={() => jumpTo(move)} className='border py-2 px-4 rounded-lg cursor-pointer bg-gray-400'>{description}</button>
       </li>
     );
   });
 
   return (
     <>
-      <div className="game">
+      <div className="p-10 bg-gray-900">
         <div className="game-board">
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
         </div>
-        <div className="game-info">
+        <div className="mx-auto text-center mt-4">
+          <h1 className='mb-4 text-gray-100'>Time Travel</h1>
           <ol>
             {moves}
           </ol>
